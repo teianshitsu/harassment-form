@@ -1,56 +1,176 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>テスト</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<title>ハラスメント相談フォーム</title>
 
-  <!-- LIFF SDK -->
-  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- LIFF -->
+<script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+
+<style>
+body { background:#f5f6f8; }
+.card { border-radius:16px; }
+.hidden { display:none; }
+</style>
 </head>
-<body class="bg-light">
 
-  <div class="container mt-4">
-    <div class="card p-4 shadow-sm">
-      <h3 class="mb-3">テスト画面</h3>
+<body>
 
-      <div id="status" class="alert alert-secondary">
-        初期化中…
-      </div>
+<div class="container mt-4">
 
-      <button class="btn btn-primary">ボタン</button>
+  <div class="card p-4 mb-3 shadow-sm">
+    <h4 class="fw-bold">ハラスメント外部相談窓口</h4>
+    <p class="text-muted">匿名での回答も可能です。</p>
+    <div id="status" class="alert alert-secondary">初期化中…</div>
+  </div>
+
+  <div class="card p-4 mb-3">
+    <h5>回答方法</h5>
+
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="mode" value="anonymous" checked>
+      <label class="form-check-label">匿名で回答</label>
+    </div>
+
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="mode" value="identified">
+      <label class="form-check-label">個別対応を希望</label>
     </div>
   </div>
 
-  <script>
-    async function init() {
-      try {
-        await liff.init({ liffId: "2009535678-QppRF0b3" });
+  <div class="card p-4 mb-3">
+    <h5>1. 社内窓口への相談状況</h5>
 
-        if (!liff.isLoggedIn()) {
-          liff.login();
-          return;
-        }
+    <div class="form-check">
+      <input class="form-check-input consulted" type="radio" name="consulted" value="はい">
+      <label class="form-check-label">はい</label>
+    </div>
 
-        const profile = await liff.getProfile();
+    <div class="form-check">
+      <input class="form-check-input consulted" type="radio" name="consulted" value="いいえ">
+      <label class="form-check-label">いいえ</label>
+    </div>
+  </div>
 
-        document.getElementById("status").className = "alert alert-success";
-        document.getElementById("status").innerHTML =
-          "LIFF接続成功！<br>" +
-          "ユーザー名: " + profile.displayName + "<br>" +
-          "ユーザーID: " + profile.userId;
-      } catch (error) {
-        document.getElementById("status").className = "alert alert-danger";
-        document.getElementById("status").textContent =
-          "エラー: " + error.message;
-      }
+  <div id="yesBox" class="card p-4 mb-3 hidden">
+    <h5>2. 社内窓口対応</h5>
+    <textarea id="yesText" class="form-control"></textarea>
+  </div>
+
+  <div id="noBox" class="card p-4 mb-3 hidden">
+    <h5>3. 利用していない理由</h5>
+
+    <div class="form-check">
+      <input class="form-check-input reason" type="checkbox" value="知らなかった">
+      <label class="form-check-label">窓口を知らなかった</label>
+    </div>
+
+    <div class="form-check">
+      <input class="form-check-input reason" type="checkbox" value="相談しにくい">
+      <label class="form-check-label">相談しにくい</label>
+    </div>
+
+    <div class="form-check">
+      <input class="form-check-input reason" type="checkbox" value="その他">
+      <label class="form-check-label">その他</label>
+    </div>
+
+    <input id="otherReason" class="form-control mt-2" placeholder="その他内容">
+  </div>
+
+  <div class="card p-4 mb-3">
+    <h5>4. 注意事項</h5>
+
+    <div class="alert alert-light small">
+      外部相談窓口は解決機関ではなく、相談窓口です。
+    </div>
+
+    <div class="form-check">
+      <input id="agree" class="form-check-input" type="checkbox">
+      <label class="form-check-label">同意する</label>
+    </div>
+  </div>
+
+  <div class="card p-4 mb-3">
+    <h5>5. ご相談内容</h5>
+    <textarea id="detail" class="form-control" rows="5"></textarea>
+  </div>
+
+  <button class="btn btn-dark w-100" onclick="submitForm()">送信</button>
+
+</div>
+
+<script>
+
+let userId = "";
+
+async function init(){
+  await liff.init({ liffId: "2009535678-QppRF0b3" });
+
+  if(!liff.isLoggedIn()){
+    liff.login();
+    return;
+  }
+
+  const profile = await liff.getProfile();
+  userId = profile.userId;
+
+  document.getElementById("status").className = "alert alert-success";
+  document.getElementById("status").textContent = "入力してください";
+}
+
+document.querySelectorAll(".consulted").forEach(el=>{
+  el.addEventListener("change", ()=>{
+    const val = document.querySelector('input[name="consulted"]:checked').value;
+
+    document.getElementById("yesBox").classList.add("hidden");
+    document.getElementById("noBox").classList.add("hidden");
+
+    if(val === "はい"){
+      document.getElementById("yesBox").classList.remove("hidden");
+    } else {
+      document.getElementById("noBox").classList.remove("hidden");
     }
+  });
+});
 
-    init();
-  </script>
+async function submitForm(){
+
+  if(!document.getElementById("agree").checked){
+    alert("同意してください");
+    return;
+  }
+
+  const mode = document.querySelector('input[name="mode"]:checked').value;
+  const consulted = document.querySelector('input[name="consulted"]:checked')?.value || "";
+
+  const reasons = [];
+  document.querySelectorAll(".reason:checked").forEach(el=>{
+    reasons.push(el.value);
+  });
+
+  const payload = {
+    userId: mode === "anonymous" ? "" : userId,
+    consulted: consulted,
+    yesText: document.getElementById("yesText").value,
+    reasons: reasons.join(","),
+    otherReason: document.getElementById("otherReason").value,
+    detail: document.getElementById("detail").value
+  };
+
+  console.log(payload);
+
+  alert("送信（まだ保存未接続）");
+}
+
+init();
+
+</script>
 
 </body>
 </html>
