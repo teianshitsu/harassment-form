@@ -139,6 +139,7 @@
 
   <script>
     let userId = "";
+    let displayName = "";
 
     async function init() {
       await liff.init({ liffId: "2009535678-QppRF0b3" });
@@ -150,6 +151,7 @@
 
       const profile = await liff.getProfile();
       userId = profile.userId;
+      displayName = profile.displayName;
     }
 
     document.querySelectorAll(".consulted").forEach(el => {
@@ -219,6 +221,7 @@
 
       const payload = {
         userId: userId,
+        displayName: displayName,
         company: company,
         name: name,
         consulted: consulted,
