@@ -1,106 +1,100 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ハラスメント外部相談窓口　事前ヒアリングフォーム</title>
 
-<title>ハラスメント外部相談窓口　事前ヒアリングフォーム</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
-
-<style>
-body { background:#f5f6f8; }
-.card { border-radius:16px; }
-.hidden { display:none; }
-.notice-box {
-  background: #fff;
-  border-left: 4px solid #6c757d;
-  border-radius: 12px;
-  padding: 14px;
-  font-size: 0.95rem;
-  line-height: 1.7;
-  white-space: pre-line;
-}
-</style>
+  <style>
+    body { background: #f5f6f8; }
+    .card { border-radius: 16px; }
+    .hidden { display: none; }
+    .notice-box {
+      background: #fff;
+      border-left: 4px solid #6c757d;
+      border-radius: 12px;
+      padding: 14px;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      white-space: pre-line;
+    }
+  </style>
 </head>
-
 <body>
-<div class="container mt-4 mb-5">
 
- <div class="card p-4 mb-3 shadow-sm">
-    <h4 class="fw-bold mb-3">ハラスメント外部相談窓口　事前ヒアリングフォーム</h4>
-    <p class="mb-2">
-      対応を進めるかどうかは、必ずご相談者ご本人のご希望を確認したうえで決定します。<br>
-      無断で会社へ情報を共有することはありません。
-    </p>
-    <p class="text-muted mb-3">
-      状況を具体的に把握するため、以下を教えてください。
-    </p>
-  </div>
+  <div class="container mt-4 mb-5">
 
-  <!-- 基本情報 -->
-  <div class="card p-4 mb-3">
-    <h5>会社名（必須）</h5>
-    <input id="companyName" class="form-control mb-3">
-
-    <h5>お名前（必須）</h5>
-    <input id="personName" class="form-control">
-  </div>
-
-  <!-- 質問1 -->
-  <div class="card p-4 mb-3">
-    <h5>1. 貴社内のハラスメント窓口にはすでにご相談されましたか？</h5>
-
-    <div class="form-check">
-      <input class="form-check-input consulted" type="radio" name="consulted" value="はい">
-      <label class="form-check-label">はい</label>
+    <div class="card p-4 mb-3 shadow-sm">
+      <h4 class="fw-bold mb-3">ハラスメント外部相談窓口　事前ヒアリングフォーム</h4>
+      <p class="mb-2">
+        対応を進めるかどうかは、必ずご相談者ご本人のご希望を確認したうえで決定します。<br>
+        無断で会社へ情報を共有することはありません。
+      </p>
+      <p class="text-muted mb-0">
+        状況を具体的に把握するため、以下を教えてください。
+      </p>
     </div>
 
-    <div class="form-check">
-      <input class="form-check-input consulted" type="radio" name="consulted" value="いいえ">
-      <label class="form-check-label">いいえ</label>
-    </div>
-  </div>
+    <div class="card p-4 mb-3">
+      <h5>会社名（必須）</h5>
+      <input id="companyName" class="form-control mb-3">
 
-  <!-- YES -->
-  <div id="yesBox" class="card p-4 mb-3 hidden">
-     <h5 class="mb-3">2. 「はい（YES）」と回答された方</h5>
-    <label for="yesText" class="form-label">
-      社内窓口担当者の対応についてお聞かせください。
-    </label>
-    <textarea id="yesText" class="form-control" rows="5" placeholder="ご記入ください"></textarea>
-  </div>
-
-  <!-- NO -->
-  <div id="noBox" class="card p-4 mb-3 hidden">
-    <h5 class="mb-3">3. 「いいえ（NO）」と回答された方</h5>
-    <p class="mb-3">社内窓口を利用されていない理由を教えてください（複数回答可）。</p>
-
-    <div class="form-check mb-2">
-      <input class="form-check-input reason" type="checkbox" id="reason1" value="社内窓口があることを知らなかった">
-      <label class="form-check-label" for="reason1">社内窓口があることを知らなかった</label>
+      <h5>お名前（必須）</h5>
+      <input id="personName" class="form-control">
     </div>
 
-    <div class="form-check mb-2">
-      <input class="form-check-input reason" type="checkbox" id="reason2" value="社内窓口には相談しにくい">
-      <label class="form-check-label" for="reason2">社内窓口には相談しにくい</label>
+    <div class="card p-4 mb-3">
+      <h5>1. 貴社内のハラスメント窓口にはすでにご相談されましたか？</h5>
+
+      <div class="form-check">
+        <input class="form-check-input consulted" type="radio" name="consulted" value="はい" id="consultedYes">
+        <label class="form-check-label" for="consultedYes">はい</label>
+      </div>
+
+      <div class="form-check">
+        <input class="form-check-input consulted" type="radio" name="consulted" value="いいえ" id="consultedNo">
+        <label class="form-check-label" for="consultedNo">いいえ</label>
+      </div>
     </div>
 
-    <div class="form-check mb-2">
-      <input class="form-check-input reason" type="checkbox" id="reasonOther" value="その他">
-      <label class="form-check-label" for="reasonOther">その他</label>
+    <div id="yesBox" class="card p-4 mb-3 hidden">
+      <h5 class="mb-3">2. 「はい（YES）」と回答された方</h5>
+      <label for="yesText" class="form-label">
+        社内窓口担当者の対応についてお聞かせください。
+      </label>
+      <textarea id="yesText" class="form-control" rows="5" placeholder="ご記入ください"></textarea>
     </div>
 
-    <label for="otherReason" class="form-label mt-3">その他（具体的に）</label>
-    <input id="otherReason" class="form-control" type="text" placeholder="ご入力ください">
-  </div>
+    <div id="noBox" class="card p-4 mb-3 hidden">
+      <h5 class="mb-3">3. 「いいえ（NO）」と回答された方</h5>
+      <p class="mb-3">社内窓口を利用されていない理由を教えてください（複数回答可）。</p>
 
-  <!-- 注意事項 -->
-  <div class="card p-4 mb-3">
-    <h5>4. 注意事項の確認</h5>
+      <div class="form-check mb-2">
+        <input class="form-check-input reason" type="checkbox" id="reason1" value="社内窓口があることを知らなかった">
+        <label class="form-check-label" for="reason1">社内窓口があることを知らなかった</label>
+      </div>
 
-    <div class="notice-box mb-3">
+      <div class="form-check mb-2">
+        <input class="form-check-input reason" type="checkbox" id="reason2" value="社内窓口には相談しにくい">
+        <label class="form-check-label" for="reason2">社内窓口には相談しにくい</label>
+      </div>
+
+      <div class="form-check mb-2">
+        <input class="form-check-input reason" type="checkbox" id="reasonOther" value="その他">
+        <label class="form-check-label" for="reasonOther">その他</label>
+      </div>
+
+      <label for="otherReason" class="form-label mt-3">その他（具体的に）</label>
+      <input id="otherReason" class="form-control" type="text" placeholder="ご入力ください">
+    </div>
+
+    <div class="card p-4 mb-3">
+      <h5>4. 注意事項の確認</h5>
+
+      <div class="notice-box mb-3">
 【重要事項・免責事項】
 
 当外部相談窓口は、ハラスメント問題の解決を直接行う機関ではなく、
@@ -111,120 +105,149 @@ body { background:#f5f6f8; }
 
 なお、ハラスメント問題の具体的な解決は、
 貴社内窓口が主体となります。
+      </div>
+
+      <div id="noticeMsg" class="alert alert-warning">
+        ※同意すると次に進めます
+      </div>
+
+      <div class="form-check">
+        <input id="agree" class="form-check-input" type="checkbox">
+        <label class="form-check-label fw-bold" for="agree">
+          上記の内容に同意する
+        </label>
+      </div>
     </div>
 
-    <div id="noticeMsg" class="alert alert-warning">
-      ※同意すると次に進めます
-    </div>
+    <div id="step5" class="card p-4 mb-3 hidden">
+      <h5 class="mb-3">5. ご相談内容の詳細</h5>
 
-    <div class="form-check">
-      <input id="agree" class="form-check-input" type="checkbox">
-      <label class="form-check-label fw-bold">
-        上記の内容に同意する
+      <label for="detail" class="form-label">
+        ご相談内容を具体的にお聞かせください。<br>
+        <span class="text-muted small">
+          （例：いつ、どこで、誰から、どのようなことを言われた・されたか。<br>
+          また、現在どのようなことでお困りかなど、可能な範囲で詳しくご記入ください）
+        </span>
       </label>
+
+      <textarea id="detail" class="form-control" rows="6" placeholder="ご記入ください"></textarea>
     </div>
+
+    <button id="submitBtn" class="btn btn-dark w-100 hidden" onclick="submitForm()">送信</button>
+
   </div>
 
-  <!-- 🔒ここがロック -->
-<div id="step5" class="card p-4 mb-3 hidden">
-  <h5 class="mb-3">5. ご相談内容の詳細</h5>
+  <script>
+    let userId = "";
 
-  <label for="detail" class="form-label">
-    ご相談内容を具体的にお聞かせください。<br>
-    <span class="text-muted small">
-      （例：いつ、どこで、誰から、どのようなことを言われた・されたか。<br>
-      また、現在どのようなことでお困りかなど、可能な範囲で詳しくご記入ください）
-    </span>
-  </label>
+    async function init() {
+      await liff.init({ liffId: "2009535678-QppRF0b3" });
 
-  <textarea id="detail" class="form-control" rows="6" placeholder="ご記入ください"></textarea>
-</div>
+      if (!liff.isLoggedIn()) {
+        liff.login();
+        return;
+      }
 
-  <button id="submitBtn" class="btn btn-dark w-100 hidden" onclick="submitForm()">送信</button>
-
-</div>
-
-<script>
-
-let userId = "";
-
-async function init(){
-  await liff.init({ liffId: "2009535678-QppRF0b3" });
-
-  if(!liff.isLoggedIn()){
-    liff.login();
-    return;
-  }
-
-  const profile = await liff.getProfile();
-  userId = profile.userId;
-
-  document.getElementById("status").className = "alert alert-success";
-}
-
-// YES/NO分岐
-document.querySelectorAll(".consulted").forEach(el=>{
-  el.addEventListener("change", ()=>{
-    const val = document.querySelector('input[name="consulted"]:checked').value;
-
-    document.getElementById("yesBox").classList.add("hidden");
-    document.getElementById("noBox").classList.add("hidden");
-
-    if(val === "はい"){
-      document.getElementById("yesBox").classList.remove("hidden");
-    } else {
-      document.getElementById("noBox").classList.remove("hidden");
+      const profile = await liff.getProfile();
+      userId = profile.userId;
     }
-  });
-});
 
-// 同意で開放
-document.getElementById("agree").addEventListener("change", function(){
-  if(this.checked){
-    document.getElementById("step5").classList.remove("hidden");
-    document.getElementById("submitBtn").classList.remove("hidden");
-    document.getElementById("noticeMsg").style.display = "none";
-  } else {
-    document.getElementById("step5").classList.add("hidden");
-    document.getElementById("submitBtn").classList.add("hidden");
-    document.getElementById("noticeMsg").style.display = "block";
-  }
-});
+    document.querySelectorAll(".consulted").forEach(el => {
+      el.addEventListener("change", () => {
+        const val = document.querySelector('input[name="consulted"]:checked')?.value || "";
 
-// 送信
-async function submitForm(){
+        document.getElementById("yesBox").classList.add("hidden");
+        document.getElementById("noBox").classList.add("hidden");
 
-  const company = document.getElementById("companyName").value.trim();
-  const name = document.getElementById("personName").value.trim();
-  const detail = document.getElementById("detail").value.trim();
+        if (val === "はい") {
+          document.getElementById("yesBox").classList.remove("hidden");
+        } else if (val === "いいえ") {
+          document.getElementById("noBox").classList.remove("hidden");
+        }
+      });
+    });
 
-  if (!company) {
-    alert("会社名を入力してください");
-    return;
-  }
+    document.getElementById("agree").addEventListener("change", function () {
+      if (this.checked) {
+        document.getElementById("step5").classList.remove("hidden");
+        document.getElementById("submitBtn").classList.remove("hidden");
+        document.getElementById("noticeMsg").style.display = "none";
+      } else {
+        document.getElementById("step5").classList.add("hidden");
+        document.getElementById("submitBtn").classList.add("hidden");
+        document.getElementById("noticeMsg").style.display = "block";
+      }
+    });
 
-  if (!name) {
-    alert("お名前を入力してください");
-    return;
-  }
+    async function submitForm() {
+      const company = document.getElementById("companyName").value.trim();
+      const name = document.getElementById("personName").value.trim();
+      const detail = document.getElementById("detail").value.trim();
+      const consulted = document.querySelector('input[name="consulted"]:checked')?.value || "";
+      const yesText = document.getElementById("yesText").value.trim();
+      const otherReason = document.getElementById("otherReason").value.trim();
 
-  if (!document.getElementById("agree").checked) {
-    alert("同意が必要です");
-    return;
-  }
+      const reasons = [];
+      document.querySelectorAll(".reason:checked").forEach(el => {
+        reasons.push(el.value);
+      });
 
-  if (!detail) {
-    alert("相談内容を入力してください");
-    return;
-  }
+      if (!company) {
+        alert("会社名を入力してください");
+        return;
+      }
 
-  alert("送信（まだ保存未接続）");
-}
+      if (!name) {
+        alert("お名前を入力してください");
+        return;
+      }
 
-init();
+      if (!consulted) {
+        alert("相談状況を選択してください");
+        return;
+      }
 
-</script>
+      if (!document.getElementById("agree").checked) {
+        alert("同意が必要です");
+        return;
+      }
+
+      if (!detail) {
+        alert("相談内容を入力してください");
+        return;
+      }
+
+      const payload = {
+        userId: userId,
+        company: company,
+        name: name,
+        consulted: consulted,
+        yesText: yesText,
+        reasons: reasons.join(", "),
+        otherReason: otherReason,
+        detail: detail
+      };
+
+      const response = await fetch("https://script.google.com/macros/s/AKfycbxTAGSp7Q_ce-ipq_myxoL-w1XsWfGl6FPxy0yimR3DK9r7BSnzxNxQcXSBFJqwzvbv/exec", {
+        method: "POST",
+        headers: {
+          "Content-Type": "text/plain;charset=utf-8"
+        },
+        body: JSON.stringify(payload)
+      });
+
+      const result = await response.json();
+
+      if (result.status === "success") {
+        alert("送信が完了しました");
+        liff.closeWindow();
+      } else {
+        alert("送信に失敗しました: " + result.message);
+      }
+    }
+
+    init();
+  </script>
 
 </body>
 </html>
-</div>
