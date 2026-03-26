@@ -27,12 +27,16 @@ body { background:#f5f6f8; }
 
 <body>
 
-<div class="container mt-4 mb-5">
-
-  <div class="card p-4 mb-3 shadow-sm">
-    <h4 class="fw-bold">ハラスメント外部相談窓口</h4>
-    <p class="text-muted">本フォームは記名での受付となります。</p>
-    <div id="status" class="alert alert-secondary">初期化中…</div>
+ <div class="card p-4 mb-3 shadow-sm">
+    <h4 class="fw-bold mb-3">ハラスメント外部相談窓口　事前ヒアリングフォーム</h4>
+    <p class="mb-2">
+      対応を進めるかどうかは、必ずご相談者ご本人のご希望を確認したうえで決定します。<br>
+      無断で会社へ情報を共有することはありません。
+    </p>
+    <p class="text-muted mb-3">
+      状況を具体的に把握するため、以下を教えてください。
+    </p>
+    <div id="status" class="alert alert-secondary mb-0">初期化中…</div>
   </div>
 
   <!-- 基本情報 -->
@@ -46,7 +50,7 @@ body { background:#f5f6f8; }
 
   <!-- 質問1 -->
   <div class="card p-4 mb-3">
-    <h5>1. 社内窓口への相談状況</h5>
+    <h5>1. 貴社内のハラスメント窓口にはすでにご相談されましたか？</h5>
 
     <div class="form-check">
       <input class="form-check-input consulted" type="radio" name="consulted" value="はい">
@@ -61,30 +65,35 @@ body { background:#f5f6f8; }
 
   <!-- YES -->
   <div id="yesBox" class="card p-4 mb-3 hidden">
-    <h5>2. 社内窓口対応</h5>
-    <textarea id="yesText" class="form-control"></textarea>
+     <h5 class="mb-3">2. 「はい（YES）」と回答された方</h5>
+    <label for="yesText" class="form-label">
+      社内窓口担当者の対応についてお聞かせください。
+    </label>
+    <textarea id="yesText" class="form-control" rows="5" placeholder="ご記入ください"></textarea>
   </div>
 
   <!-- NO -->
   <div id="noBox" class="card p-4 mb-3 hidden">
-    <h5>3. 利用していない理由</h5>
+    <h5 class="mb-3">3. 「いいえ（NO）」と回答された方</h5>
+    <p class="mb-3">社内窓口を利用されていない理由を教えてください（複数回答可）。</p>
 
-    <div class="form-check">
-      <input class="form-check-input reason" type="checkbox" value="知らなかった">
-      <label class="form-check-label">窓口を知らなかった</label>
+    <div class="form-check mb-2">
+      <input class="form-check-input reason" type="checkbox" id="reason1" value="社内窓口があることを知らなかった">
+      <label class="form-check-label" for="reason1">社内窓口があることを知らなかった</label>
     </div>
 
-    <div class="form-check">
-      <input class="form-check-input reason" type="checkbox" value="相談しにくい">
-      <label class="form-check-label">相談しにくい</label>
+    <div class="form-check mb-2">
+      <input class="form-check-input reason" type="checkbox" id="reason2" value="社内窓口には相談しにくい">
+      <label class="form-check-label" for="reason2">社内窓口には相談しにくい</label>
     </div>
 
-    <div class="form-check">
-      <input class="form-check-input reason" type="checkbox" value="その他">
-      <label class="form-check-label">その他</label>
+    <div class="form-check mb-2">
+      <input class="form-check-input reason" type="checkbox" id="reasonOther" value="その他">
+      <label class="form-check-label" for="reasonOther">その他</label>
     </div>
 
-    <input id="otherReason" class="form-control mt-2" placeholder="その他内容">
+    <label for="otherReason" class="form-label mt-3">その他（具体的に）</label>
+    <input id="otherReason" class="form-control" type="text" placeholder="ご入力ください">
   </div>
 
   <!-- 注意事項 -->
